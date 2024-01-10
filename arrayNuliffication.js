@@ -35,21 +35,21 @@ function readLine() {
 
 function getMinOperations(change, arr) {
     let operations = 0;
-    const m = arr.length;
 
-    for (let i = 0; i < m; i++) {
-        if (change[arr[i] - 1] > 0) {
+    for (let i = 0; i < change.length; i++) {
+        if (change[i] > 0 && arr[change[i] - 1] === 0) {
+            arr[change[i] - 1] = "NULL";
             operations++;
-            change[arr[i] - 1]--;
-        } else {
-            return -1;
+
+            if (arr.every(elem => elem === "NULL")) {
+                return operations;
+            }
         }
     }
 
-    return operations;
+    return -1; 
+
 }
-
-
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
